@@ -1,0 +1,51 @@
+version: "3"
+services:
+  api: 
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/api
+    ports: 
+      - 80:3000
+    command: bash -xc "
+            while !</dev/tcp/db/5432; do sleep 1; done;
+            cd ./database;
+            npx sequelize-cli db:drop;
+            npx sequelize-cli db:create;
+            npx sequelize-cli db:migrate;
+            cd ../;
+            npm start;"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/movie_db
+      - PORT=3000
+      - MOVIE_API_KEY=16e38afd 
+  db:
+    image: postgres
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/movie_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=movie_db
+  tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=test
+      - DATABASE_URL=postgres://postgres:password@db:5432/movie_db
+      - MOVIE_API_KEY=16e38afd 
+    volumes:
+      - .:/api
+    depends_on:
+        - db
+    command: bash -xc "
+            while !</dev/tcp/db/5432; do sleep 1; done;
+            cd ./database;
+            npx sequelize-cli db:drop;
+            npx sequelize-cli db:create;
+            npx sequelize-cli db:migrate;
+            cd ../;
+            npm test;"

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movies Endpoints GET / Post / DB status should not create resource twice if exists 1`] = `
+Array [
+  Object {
+    "createdAt": 2020-09-19T17:19:31.971Z,
+    "id": 3,
+    "released": "08 Nov 2007",
+    "runtime": "40 min",
+    "title": "Scary Movie 4",
+    "updatedAt": 2020-09-19T17:19:31.971Z,
+    "year": "2007",
+  },
+]
+`;
