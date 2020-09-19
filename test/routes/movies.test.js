@@ -123,7 +123,7 @@ describe('Movies Endpoints', () => {
             raw: true
           })
           expect(res.statusCode).toEqual(200)
-          expect(movies).toMatchSnapshot()
+          expect(movies).toHaveLength(1)
         })
       })
     })
