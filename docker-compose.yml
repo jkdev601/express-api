@@ -11,9 +11,9 @@ services:
     command: bash -xc "
             while !</dev/tcp/db/5432; do sleep 1; done;
             cd ./database;
-            npx sequelize-cli db:drop;
-            npx sequelize-cli db:create;
-            npx sequelize-cli db:migrate;
+            npx sequelize db:drop;
+            npx sequelize db:create;
+            npx sequelize db:migrate;
             cd ../;
             npm start;"
     depends_on:
