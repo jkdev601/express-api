@@ -7,6 +7,7 @@ Simple api with postgres database
 ## Getting started
 
 Use docker-compose to run app locally:
+
 ```
 docker-compose up api
 ```
